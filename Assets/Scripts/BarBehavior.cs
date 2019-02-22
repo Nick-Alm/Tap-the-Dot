@@ -27,7 +27,7 @@ public class BarBehavior : MonoBehaviour {
 	void Start () {
 		userClicked = false;
 		hasIntersected = false;
-		myVector = new Vector3(0.0f, -0.01f, 0.0f);
+		myVector = new Vector3(0.0f, -0.1f, 0.0f);
 		rb = GetComponent<Rigidbody>(); // find bar's rigidbody
 		dotRB = Dot.GetComponent<Rigidbody>(); // find dot's rigidbody
 		dotRB.useGravity = false; // make sure this doesn't fall
