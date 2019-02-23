@@ -9,11 +9,12 @@ public class BarBehavior : MonoBehaviour {
 	public Rigidbody rb; // Rigidbody for the bar
 	public GameObject Dot; // Dot... Will likely need to move when refactoring
 	public Rigidbody dotRB; // rigidbody for the dot... again, will likely need to move
-	public Vector3 myVector;
+	public Vector3 movementVector;
 	public bool userClicked, hasIntersected;
 	public GameObject successMessage;
     Collider m_Collider, m_Collider2;
 	public Text text;
+	private int successDelay = 2;
 
 	// TODOS
 	// [] Get locations of objects
@@ -27,7 +28,7 @@ public class BarBehavior : MonoBehaviour {
 	void Start () {
 		userClicked = false;
 		hasIntersected = false;
-		myVector = new Vector3(0.0f, -0.1f, 0.0f);
+		movementVector = new Vector3(0.0f, -0.1f, 0.0f);
 		rb = GetComponent<Rigidbody>(); // find bar's rigidbody
 		dotRB = Dot.GetComponent<Rigidbody>(); // find dot's rigidbody
 		dotRB.useGravity = false; // make sure this doesn't fall
@@ -49,17 +50,19 @@ public class BarBehavior : MonoBehaviour {
 		if (!userClicked){
 			moveBar();
 		}
-		if (m_Collider.bounds.Intersects(m_Collider2.bounds))
+		if (checkCollision())
         {
 			hasIntersected = true;
-            Debug.Log("Bounds intersecting");
+            //Debug.Log("Bounds intersecting");
 			//text.text = "Text changed!";
         }
 		else{
 			hasIntersected = false;
 		}
+
+
 		if(userClicked && hasIntersected){
-			text.text = "Success!";
+			successFrame();
 		}
 		if(userClicked && !hasIntersected){
 			text.text = "You missed!";
@@ -68,6 +71,14 @@ public class BarBehavior : MonoBehaviour {
 	}
 
 	void moveBar(){
-		transform.Translate(myVector);
+		transform.Translate(movementVector);
+	}
+
+	private bool checkCollision(){
+		return m_Collider.bounds.Intersects(m_Collider2.bounds);
+	}
+
+	private void successFrame(){
+		text.text = "Success!";
 	}
 }

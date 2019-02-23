@@ -9,9 +9,7 @@ public class DotBehavior : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-		spherePosition = new Vector3(getRandomX(), getRandomY(), 5.5f);
-		transform.position = spherePosition;
-		
+		resetLocation();
 	}
 
 	private float getRandomX(){
@@ -28,6 +26,11 @@ public class DotBehavior : MonoBehaviour {
 		System.Random random = new System.Random();
     	return (float)(random.NextDouble() * (maximum - minimum) + minimum);
 		//return 2.0f;
+	}
+
+	public void resetLocation(){
+		spherePosition = new Vector3(getRandomX(), getRandomY(), 5.5f);
+		transform.position = spherePosition;
 	}
 	
 	// Update is called once per frame
