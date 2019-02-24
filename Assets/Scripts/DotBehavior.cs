@@ -33,6 +33,7 @@ public class DotBehavior : MonoBehaviour {
 		transform.position = spherePosition;
 	}
 	
+	
 	// Update is called once per frame
 	void Update () {
 		

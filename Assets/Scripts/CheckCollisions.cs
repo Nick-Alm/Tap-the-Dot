@@ -26,8 +26,8 @@ public class CheckCollisions : MonoBehaviour
         //If the first GameObject's Bounds enters the second GameObject's Bounds, output the message
         if (m_Collider.bounds.Intersects(m_Collider2.bounds))
         {
-            Debug.Log("Bounds intersecting");
-			text.text = "Text changed!";
+            //Debug.Log("Bounds intersecting");
+			//text.text = "Text changed!";
         }
     }
 }
