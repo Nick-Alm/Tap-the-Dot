@@ -12,11 +12,15 @@ public class BarBehavior : MonoBehaviour {
 	public Rigidbody dotRB; // rigidbody for the dot... again, will likely need to move
 	public Vector3 movementVector;
 	public bool userClicked, hasIntersected, userFailedToClick, successTap;
-	public GameObject successMessage;
+	public GameObject successMessage, currentLevelDisplay, dotsRemainingDisplay;
     Collider m_Collider, m_Collider2;
-	public Text text;
+	public Text successText, currentLevelText, dotsRemainingText;
 	private int successDelay = 2;
 	private DotBehavior dotBehavior;
+	private int currentLevelDots;
+	private int levelOneDots;
+	private int levelTwoDots;
+	private int levelThreeDots;
 
 	// TODOS
 	// [] Get locations of objects
@@ -43,7 +47,16 @@ public class BarBehavior : MonoBehaviour {
 
         //Check that the second GameObject exists in the Inspector and fetch the Collider
         m_Collider2 = GetComponent<Collider>();
-		text = successMessage.GetComponent<Text>();
+		successText = successMessage.GetComponent<Text>();
+		currentLevelText = currentLevelDisplay.GetComponent<Text>();
+		dotsRemainingText = dotsRemainingDisplay.GetComponent<Text>();
+		// currentLevelText.text = '1';
+		levelOneDots = 3;
+		levelTwoDots = levelOneDots + 2;
+		levelThreeDots = levelTwoDots + 2;
+		currentLevelDots = levelOneDots;
+		currentLevelText.text = "1";
+		dotsRemainingText.text = currentLevelDots.ToString();
 	}
 	
 	// Update is called once per frame
@@ -54,7 +67,7 @@ public class BarBehavior : MonoBehaviour {
 		if(currentPosition[1]<-5.5){
 			Debug.Log("failed to click");
 			userFailedToClick =  true;
-			text.text = "You Failed to Tap";
+			successText.text = "You Failed to Tap";
 		}
 
 		if (Input.GetButton("Fire1"))
@@ -68,7 +81,7 @@ public class BarBehavior : MonoBehaviour {
         {
 			hasIntersected = true;
             //Debug.Log("Bounds intersecting");
-			//text.text = "Text changed!";
+			//successText.text = "Text changed!";
         }
 		else{
 			hasIntersected = false;
@@ -81,7 +94,7 @@ public class BarBehavior : MonoBehaviour {
 		}
 		if(userClicked && !hasIntersected){
 			if(!successTap){
-				text.text = "You missed!";
+				successText.text = "You missed!";
 			}
 		}
 		
@@ -97,11 +110,13 @@ public class BarBehavior : MonoBehaviour {
 
 	IEnumerator successFrame(){
 		transform.position = startPosition;
-		text.text = "Success!";
+		successText.text = "Success!";
+		currentLevelDots--;
+		dotsRemainingText.text = currentLevelDots.ToString();
 		Debug.Log("waiting...");
 		yield return new WaitForSecondsRealtime(successDelay);
 		successTap = false;
-		text.text = "";
+		successText.text = "";
 		userClicked = false;
 		dotBehavior.resetLocation();
 
