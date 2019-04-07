@@ -11,7 +11,7 @@ public class BarBehavior : MonoBehaviour {
 	public GameObject Dot; // Dot... Will likely need to move when refactoring
 	public Rigidbody dotRB; // rigidbody for the dot... again, will likely need to move
 	public Vector3 movementVector;
-	public bool userClicked, hasIntersected, userFailedToClick;
+	public bool userClicked, hasIntersected, userFailedToClick, successTap;
 	public GameObject successMessage;
     Collider m_Collider, m_Collider2;
 	public Text text;
@@ -76,10 +76,13 @@ public class BarBehavior : MonoBehaviour {
 
 
 		if(userClicked && hasIntersected){
+			successTap = true;
 			StartCoroutine(successFrame());
 		}
 		if(userClicked && !hasIntersected){
-			//text.text = "You missed!";
+			if(!successTap){
+				text.text = "You missed!";
+			}
 		}
 		
 	}
@@ -97,6 +100,7 @@ public class BarBehavior : MonoBehaviour {
 		text.text = "Success!";
 		Debug.Log("waiting...");
 		yield return new WaitForSecondsRealtime(successDelay);
+		successTap = false;
 		text.text = "";
 		userClicked = false;
 		dotBehavior.resetLocation();
