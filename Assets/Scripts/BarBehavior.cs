@@ -17,7 +17,7 @@ public class BarBehavior : MonoBehaviour {
 	public Text successText, currentLevelText, dotsRemainingText;
 	private int successDelay = 2;
 	private DotBehavior dotBehavior;
-	private int currentLevelDots;
+	private int currentLevel, currentLevelDots;
 	private int levelOneDots;
 	private int levelTwoDots;
 	private int levelThreeDots;
@@ -51,12 +51,13 @@ public class BarBehavior : MonoBehaviour {
 		currentLevelText = currentLevelDisplay.GetComponent<Text>();
 		dotsRemainingText = dotsRemainingDisplay.GetComponent<Text>();
 		// currentLevelText.text = '1';
-		levelOneDots = 3;
+		levelOneDots = 5;
 		levelTwoDots = levelOneDots + 2;
 		levelThreeDots = levelTwoDots + 2;
 		currentLevelDots = levelOneDots;
-		currentLevelText.text = "1";
 		dotsRemainingText.text = currentLevelDots.ToString();
+		currentLevel = 1;
+		currentLevelText.text = currentLevel.ToString();
 	}
 	
 	// Update is called once per frame
@@ -95,6 +96,16 @@ public class BarBehavior : MonoBehaviour {
 		if(userClicked && !hasIntersected){
 			if(!successTap){
 				successText.text = "You missed!";
+				if(currentLevel ==1) {
+					currentLevelDots = levelOneDots;
+				}
+				if(currentLevel ==2) {
+					currentLevelDots = levelTwoDots;
+				}
+				if(currentLevel ==3) {
+					currentLevelDots = levelThreeDots;
+				}
+				dotsRemainingText.text = currentLevelDots.ToString();
 			}
 		}
 		
@@ -112,6 +123,17 @@ public class BarBehavior : MonoBehaviour {
 		transform.position = startPosition;
 		successText.text = "Success!";
 		currentLevelDots--;
+		if(currentLevelDots<1) {
+			if(currentLevel == 1) {
+				currentLevelDots = levelTwoDots;
+				movementVector = new Vector3(0.0f, -0.15f, 0.0f);
+			} else if (currentLevel == 2) {
+				currentLevelDots = levelThreeDots;
+				movementVector = new Vector3(0.0f, -0.2f, 0.0f);
+			}
+			currentLevel ++;
+		}
+		currentLevelText.text = currentLevel.ToString();
 		dotsRemainingText.text = currentLevelDots.ToString();
 		Debug.Log("waiting...");
 		yield return new WaitForSecondsRealtime(successDelay);
