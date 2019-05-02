@@ -11,6 +11,7 @@ public class InstructionsScript : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 		userClicked = false;
+		GameStats.Level = 1;
 		
 	}
 	
@@ -21,7 +22,7 @@ public class InstructionsScript : MonoBehaviour {
 			userClicked = true;
         }
 		if(userClicked){
-			SceneManager.LoadScene (sceneName:"introScene");
+			SceneManager.LoadScene (sceneName:"levelOne");
 		}
 	}
 }

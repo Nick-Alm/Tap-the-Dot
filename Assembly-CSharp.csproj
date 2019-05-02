@@ -54,8 +54,10 @@
   </ItemGroup>
   <ItemGroup>
      <Compile Include="Assets\Scripts\BarBehavior.cs" />
+     <Compile Include="Assets\Scripts\BetweenLevelScript.cs" />
      <Compile Include="Assets\Scripts\CheckCollisions.cs" />
      <Compile Include="Assets\Scripts\DotBehavior.cs" />
+     <Compile Include="Assets\Scripts\GameStats.cs" />
      <Compile Include="Assets\Scripts\InstructionsScript.cs" />
      <Compile Include="Assets\Scripts\SceneController.cs" />
      <Compile Include="Assets\Scripts\SpinningCube.cs" />

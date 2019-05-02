@@ -9,8 +9,8 @@ public class BarBehavior : MonoBehaviour {
 	private Vector3 startPosition, currentPosition;
 	public float speed; // we will need to set this upon each level depending on the difficulty settings
 	public Rigidbody rb; // Rigidbody for the bar
-	public GameObject Dot; // Dot... Will likely need to move when refactoring
-	public Rigidbody dotRB; // rigidbody for the dot... again, will likely need to move
+	public GameObject Dot; 
+	public Rigidbody dotRB; 
 	public Vector3 movementVector;
 	public bool userClicked, hasIntersected, userFailedToClick, successTap;
 	public GameObject successMessage, currentLevelDisplay, dotsRemainingDisplay;
@@ -19,18 +19,8 @@ public class BarBehavior : MonoBehaviour {
 	private int successDelay = 2;
 	private DotBehavior dotBehavior;
 	private int currentLevel, currentLevelDots;
-	private int levelOneDots;
-	private int levelTwoDots;
-	private int levelThreeDots;
+	private int levelOneDots, levelTwoDots, levelThreeDots;
 
-	// TODOS
-	// [] Get locations of objects
-	// [] Move bar based on location of the dot
-	// 	-	[] Allow for bar's movement to proceed after passing by the bar
-	// [] Get some sort of user input to stop movement -- Bool based on input
-	// [] Define a success in terms of the bar's stopping in relation to the dot
-	// [] Define movement in regard to angle
-	
 	// Use this for initialization
 	void Start () {
 		startPosition = new Vector3(0.0f, 5.15f, 5.5f);
@@ -38,10 +28,12 @@ public class BarBehavior : MonoBehaviour {
 		userClicked = false;
 		hasIntersected = false;
 		movementVector = new Vector3(0.0f, -0.1f, 0.0f);
+
 		rb = GetComponent<Rigidbody>(); // find bar's rigidbody
 		dotRB = Dot.GetComponent<Rigidbody>(); // find dot's rigidbody
 		dotRB.useGravity = false; // make sure this doesn't fall
 		rb.useGravity = false; // also make sure this doesn't fall... will define movement behavior later using the speed based upon the dot's location
+
 		if (Dot != null)
             m_Collider = Dot.GetComponent<Collider>();
 			dotBehavior = Dot.GetComponent<DotBehavior>();
@@ -52,12 +44,10 @@ public class BarBehavior : MonoBehaviour {
 		currentLevelText = currentLevelDisplay.GetComponent<Text>();
 		dotsRemainingText = dotsRemainingDisplay.GetComponent<Text>();
 		// currentLevelText.text = '1';
-		levelOneDots = 5;
-		levelTwoDots = levelOneDots + 2;
-		levelThreeDots = levelTwoDots + 2;
-		currentLevelDots = levelOneDots;
+
+		currentLevelDots = GameStats.Level*2 + 3;
 		dotsRemainingText.text = currentLevelDots.ToString();
-		currentLevel = 1;
+		currentLevel = GameStats.Level;
 		currentLevelText.text = currentLevel.ToString();
 	}
 	
@@ -134,6 +124,8 @@ public class BarBehavior : MonoBehaviour {
 				movementVector = new Vector3(0.0f, -0.2f, 0.0f);
 			}
 			currentLevel ++;
+			GameStats.Level++;
+			SceneManager.LoadScene (sceneName:"betweenLevels");
 		}
 		currentLevelText.text = currentLevel.ToString();
 		dotsRemainingText.text = currentLevelDots.ToString();
