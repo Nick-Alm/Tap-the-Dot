@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class BarBehavior : MonoBehaviour {
 
@@ -105,6 +106,7 @@ public class BarBehavior : MonoBehaviour {
 				if(currentLevel ==3) {
 					currentLevelDots = levelThreeDots;
 				}
+				SceneManager.LoadScene (sceneName:"Main");
 				dotsRemainingText.text = currentLevelDots.ToString();
 			}
 		}

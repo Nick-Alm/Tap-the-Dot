@@ -56,6 +56,7 @@
      <Compile Include="Assets\Scripts\BarBehavior.cs" />
      <Compile Include="Assets\Scripts\CheckCollisions.cs" />
      <Compile Include="Assets\Scripts\DotBehavior.cs" />
+     <Compile Include="Assets\Scripts\InstructionsScript.cs" />
      <Compile Include="Assets\Scripts\SceneController.cs" />
      <Compile Include="Assets\Scripts\SpinningCube.cs" />
  <Reference Include="UnityEditor.StandardEvents">
