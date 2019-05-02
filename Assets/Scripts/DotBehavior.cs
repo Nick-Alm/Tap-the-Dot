@@ -6,14 +6,20 @@ using System;
 public class DotBehavior : MonoBehaviour {
 
 	private Vector3 spherePosition;
+	public Camera screenCamera;
+	public float height, width;
 
 	// Use this for initialization
 	void Start () {
 		resetLocation();
+		height = screenCamera.orthographicSize * 2;
+		width = height * Screen.width/ Screen.height;
+		Debug.Log(height);
+		Debug.Log(width);
 	}
 
 	private float getRandomX(){
-		double minimum = -11.5f;
+		double minimum = -width/2;
 		double maximum = minimum * -1.0;
 		System.Random random = new System.Random();
     	return (float)(random.NextDouble() * (maximum - minimum) + minimum);
@@ -21,7 +27,7 @@ public class DotBehavior : MonoBehaviour {
 	}
 
 	private float getRandomY(){
-		double minimum = -4.5f;
+		double minimum = -(height-1)/2;
 		double maximum = minimum * -1.0;
 		System.Random random = new System.Random();
     	return (float)(random.NextDouble() * (maximum - minimum) + minimum);
