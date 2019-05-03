@@ -27,7 +27,8 @@ public class BarBehavior : MonoBehaviour {
 		userFailedToClick = false;
 		userClicked = false;
 		hasIntersected = false;
-		movementVector = new Vector3(0.0f, -0.1f, 0.0f);
+		float speed = GameStats.Level*.01f;
+		movementVector = new Vector3(0.0f, -speed, 0.0f);
 
 		rb = GetComponent<Rigidbody>(); // find bar's rigidbody
 		dotRB = Dot.GetComponent<Rigidbody>(); // find dot's rigidbody
